@@ -1,0 +1,15 @@
+relationship 1cbffacb-a6be-41e2-907d-bb07ff4ddebc
+	joinOnDateBehavior: datePartOnly
+	fromColumn: TablaTransacciones.Fecha
+	toColumn: LocalDateTable_767e4b0d-1240-499d-bf9b-88f979de96d4.Date
+
+relationship 687b718d-d31e-4369-a908-cdce0bf48d79
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: TablaEstatus.'ID Orden'
+	toColumn: TablaTransacciones.'ID Orden'
+
+relationship 05541898-ab56-4b8a-b09c-6d78e9c6f6bc
+	fromColumn: TablaEstatus.Estatus
+	toColumn: EstatusOrden.Estatus
+

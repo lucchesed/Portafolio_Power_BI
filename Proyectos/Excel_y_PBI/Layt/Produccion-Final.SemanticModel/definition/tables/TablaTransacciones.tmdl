@@ -1,0 +1,93 @@
+table TablaTransacciones
+	lineageTag: c476448a-e6b2-485c-8b3a-037ca5705202
+
+	column 'ID Orden'
+		dataType: string
+		lineageTag: 3c3bd84a-5713-4420-ad94-1cd0803c4721
+		summarizeBy: none
+		sourceColumn: ID Orden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Fecha
+		dataType: dateTime
+		lineageTag: efa45493-12c0-4138-94ee-ae91b4069b46
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		variation Variation
+			isDefault
+			relationship: 1cbffacb-a6be-41e2-907d-bb07ff4ddebc
+			defaultHierarchy: LocalDateTable_767e4b0d-1240-499d-bf9b-88f979de96d4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column Cantidad
+		dataType: int64
+		formatString: #,0
+		lineageTag: e50b7f4e-2b7d-440a-a4ad-c107ea1ce6dc
+		summarizeBy: sum
+		sourceColumn: Cantidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column Prioridad
+		dataType: string
+		lineageTag: 37d9d4a2-8df5-4f13-a45a-8427bcd84b66
+		summarizeBy: none
+		sourceColumn: Prioridad
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Tipo Cliente'
+		dataType: string
+		lineageTag: 93662c3a-33f3-42f0-816d-aa024dd7f692
+		summarizeBy: none
+		sourceColumn: Tipo Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Tipo Envio'
+		dataType: string
+		lineageTag: 1cde8139-7606-433b-8de7-b7aea2b07ad3
+		summarizeBy: none
+		sourceColumn: Tipo Envio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Gerente
+		dataType: string
+		lineageTag: 8e0f488b-5a92-43a4-b2ca-41bb251a6191
+		summarizeBy: none
+		sourceColumn: Gerente
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition TablaTransacciones-60587a6b-4a77-461b-9647-afdb07a74d55 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Admin\Desktop\Curso Excel-PowerBI\Power BI - Practica 3\Produccion\Produccion.xlsx"), null, true),
+				    TablaTransacciones_Table = Source{[Item="TablaTransacciones",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(TablaTransacciones_Table,{{"ID Orden", type text}, {"Fecha", type date}, {"Cantidad", Int64.Type}, {"Prioridad", type text}, {"Tipo Cliente", type text}, {"Tipo Envio", type text}, {"Gerente", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,24 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-MX
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.141.1754.0 (25.03)+e4409ed908ce97a5e9747f7dc48da475cf1c71a2
+
+annotation PBI_QueryOrder = ["TablaEstatus","TablaTransacciones","EstatusOrden"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table TablaEstatus
+ref table DateTableTemplate_fdcd1aef-f09a-48ab-8125-26c44e12a1cb
+ref table TablaTransacciones
+ref table LocalDateTable_767e4b0d-1240-499d-bf9b-88f979de96d4
+ref table EstatusOrden
+
+ref cultureInfo en-US
+

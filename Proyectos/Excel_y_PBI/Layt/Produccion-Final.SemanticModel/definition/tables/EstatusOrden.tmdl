@@ -1,0 +1,34 @@
+table EstatusOrden
+	lineageTag: d7ea842d-ffc6-4a6c-bc3a-19a1e88bb82f
+
+	column Estatus
+		dataType: string
+		lineageTag: 9936305f-2033-4f0b-bc11-217784214d85
+		summarizeBy: none
+		sourceColumn: Estatus
+		sortByColumn: Orden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Orden
+		dataType: int64
+		formatString: 0
+		lineageTag: 5820d8d9-8dc9-4e87-8e2f-36984bc8c460
+		summarizeBy: none
+		sourceColumn: Orden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition EstatusOrden-5735fce7-c1fb-40dd-b6d9-44a73f093e84 = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45Wcs0rKUpNT0zJV9JRMlSK1YlWckktK03NKQEJGCnFxgIA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type text) meta [Serialized.Text = true]) in type table [Estatus = _t, Orden = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Estatus", type text}, {"Orden", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

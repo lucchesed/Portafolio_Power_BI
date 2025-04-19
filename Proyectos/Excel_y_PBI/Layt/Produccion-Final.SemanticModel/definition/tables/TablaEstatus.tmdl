@@ -1,0 +1,47 @@
+table TablaEstatus
+	lineageTag: 97f72a32-d275-44be-bfec-e42c5112d4c1
+
+	column 'ID Orden'
+		dataType: string
+		lineageTag: 7c1e3dd3-da39-4774-98f2-8a660a42c494
+		summarizeBy: none
+		sourceColumn: ID Orden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Estatus
+		dataType: string
+		lineageTag: 566a75a1-9a77-48d9-af3e-fcaf682101a3
+		summarizeBy: none
+		sourceColumn: Estatus
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Razon
+		dataType: string
+		lineageTag: b98dda72-074c-4346-a625-e9a674e85ccf
+		summarizeBy: none
+		sourceColumn: Razon
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition TablaEstatus-177976d4-32a2-44c2-9795-7afbb639d454 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Admin\Desktop\Curso Excel-PowerBI\Power BI - Practica 3\Produccion\Produccion.xlsx"), null, true),
+				    TablaEstatus_Table = Source{[Item="TablaEstatus",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(TablaEstatus_Table,{{"ID Orden", type text}, {"Estatus", type text}, {"Razon", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
