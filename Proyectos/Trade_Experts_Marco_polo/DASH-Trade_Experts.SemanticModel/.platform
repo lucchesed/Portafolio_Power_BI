@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "DASH-Trade_Experts"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "22204d01-46e0-467d-b8aa-27c42a3501db"
+  }
+}

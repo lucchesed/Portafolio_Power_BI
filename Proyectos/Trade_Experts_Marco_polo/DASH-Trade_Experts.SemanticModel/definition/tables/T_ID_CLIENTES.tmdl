@@ -1,0 +1,64 @@
+table T_ID_CLIENTES
+	lineageTag: 071430e8-d416-4ff0-ace7-a2d4c9b7cd14
+
+	column ID_CLIENTE
+		dataType: int64
+		formatString: 0
+		lineageTag: 5a3e2183-e302-400c-b2d5-aed4632db7db
+		summarizeBy: none
+		sourceColumn: ID_CLIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column Compañía
+		dataType: string
+		lineageTag: a94b5f0b-525e-4615-ac2c-4e27391906b9
+		summarizeBy: none
+		sourceColumn: Compañía
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre Contacto'
+		dataType: string
+		lineageTag: f50e621e-63f2-4d8b-8373-e38ffaa0a90b
+		summarizeBy: none
+		sourceColumn: Nombre Contacto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Email
+		dataType: string
+		lineageTag: 1b295809-947a-44a3-9d71-9f5cc2fa22ce
+		summarizeBy: none
+		sourceColumn: Email
+
+		annotation SummarizationSetBy = Automatic
+
+	column Telefono
+		dataType: string
+		lineageTag: f5d69980-b267-4b0d-b90d-eae32233986e
+		summarizeBy: none
+		sourceColumn: Telefono
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tipo
+		dataType: string
+		lineageTag: 10aaffc8-ee6a-4588-8a47-c250eac4a1c6
+		summarizeBy: none
+		sourceColumn: Tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_ID_CLIENTES-4f61895d-a573-49ef-b2bf-042e6b4eed4a = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\dlucc\Desktop\Proyectos Power BI\Heladeria\Heladeria_Data.xlsx"), null, true),
+				    T_ID_CLIENTES_Table = Source{[Item="T_ID_CLIENTES",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(T_ID_CLIENTES_Table,{{"ID_CLIENTE", Int64.Type}, {"Compañía", type text}, {"Nombre Contacto", type text}, {"Email", type text}, {"Telefono", type text}, {"Tipo", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

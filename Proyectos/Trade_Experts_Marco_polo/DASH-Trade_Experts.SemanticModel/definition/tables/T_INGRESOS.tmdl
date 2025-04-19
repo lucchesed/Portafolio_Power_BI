@@ -1,0 +1,121 @@
+table T_INGRESOS
+	lineageTag: f2b4103b-4776-42a9-b8ae-20598a4285fa
+
+	measure 'Total Gastos' = SUM(T_INGRESOS[GASTOS])
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: eb8de987-ed89-4e38-90ae-779a6261f07f
+
+	measure 'Total Ingresos' = SUM(T_INGRESOS[INGRRESOS])
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 993ab5ef-0a15-4025-953f-786df705c685
+
+	measure 'Total Ganancia' = [Total Ingresos] - [Total Gastos]
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: f5648b8c-8ab7-40fa-bc19-e344347d9a85
+
+	measure 'Total ventas' = COUNT(T_INGRESOS[ID_TRANSACCION])
+		formatString: 0
+		lineageTag: 11471188-e3da-4582-8d14-2589902f1506
+
+	measure 'Total Litros' = SUM(T_ID_CAPACIDAD[CANTIDAD LITROS]) * COUNT(T_INGRESOS[ID_TRANSACCION])
+		formatString: #,0
+		lineageTag: 61da45b0-e186-4509-b92a-bf7d029aa1b5
+
+	column ID_TRANSACCION
+		dataType: string
+		lineageTag: 82d2d801-b375-400b-9b1f-59d3f8983efd
+		summarizeBy: none
+		sourceColumn: ID_TRANSACCION
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID-CLIENTE
+		dataType: string
+		isHidden
+		lineageTag: 43a1a5d9-f4b3-41ee-b8c2-101ef049ed01
+		summarizeBy: none
+		sourceColumn: ID-CLIENTE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column FECHA
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: e42f56ed-7ccd-4971-831c-dec050520383
+		summarizeBy: none
+		sourceColumn: FECHA
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ID_SABOR
+		dataType: string
+		isHidden
+		lineageTag: 62e82d84-be1c-41ba-bd33-b75bae00a7e0
+		summarizeBy: none
+		sourceColumn: ID_SABOR
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID-RECIPIENTE
+		dataType: string
+		isHidden
+		lineageTag: 792524d4-669d-404c-9641-3cbdceb53688
+		summarizeBy: none
+		sourceColumn: ID-RECIPIENTE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_CAPACIDAD
+		dataType: string
+		isHidden
+		lineageTag: 2b5c2dc3-5b95-44d6-8cb2-24a2085e610f
+		summarizeBy: none
+		sourceColumn: ID_CAPACIDAD
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column INGRRESOS
+		dataType: int64
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 71380bae-b6f9-45c5-a74c-36e954788063
+		summarizeBy: sum
+		sourceColumn: INGRRESOS
+
+		annotation SummarizationSetBy = Automatic
+
+	column GASTOS
+		dataType: int64
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: ff9eb7a8-145e-4cd9-a896-4a2d120ff4c6
+		summarizeBy: sum
+		sourceColumn: GASTOS
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_INGRESOS-12fbb8c8-6364-46c7-a010-0f7c157b152c = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\dlucc\Desktop\Proyectos Power BI\Heladeria\Heladeria_Data.xlsx"), null, true),
+				    T_INGRESOS_Table = Source{[Item="T_INGRESOS",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(T_INGRESOS_Table,{{"GASTOS", Int64.Type}, {"INGRRESOS", Int64.Type}, {"FECHA", type date}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

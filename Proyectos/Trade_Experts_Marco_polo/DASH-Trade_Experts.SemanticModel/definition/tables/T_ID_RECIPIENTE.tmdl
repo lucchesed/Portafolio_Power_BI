@@ -1,0 +1,32 @@
+table T_ID_RECIPIENTE
+	lineageTag: 25a6cb37-a959-4bdc-ad4d-73b0d75794b9
+
+	column ID-RECIPIENTE
+		dataType: int64
+		formatString: 0
+		lineageTag: e9ccf1dc-449a-4cce-ac20-66e9758a1000
+		summarizeBy: none
+		sourceColumn: ID-RECIPIENTE
+
+		annotation SummarizationSetBy = Automatic
+
+	column DESCRIPCION
+		dataType: string
+		lineageTag: 068108be-7ee4-4a6b-a0f9-72a36233f604
+		summarizeBy: none
+		sourceColumn: DESCRIPCION
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_ID_RECIPIENTE-d3e5f1d9-c190-4bfc-b125-2fb93a517d60 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\dlucc\Desktop\Proyectos Power BI\Heladeria\Heladeria_Data.xlsx"), null, true),
+				    T_ID_RECIPIENTE_Table = Source{[Item="T_ID_RECIPIENTE",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(T_ID_RECIPIENTE_Table,{{"ID-RECIPIENTE", Int64.Type}, {"DESCRIPCION", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

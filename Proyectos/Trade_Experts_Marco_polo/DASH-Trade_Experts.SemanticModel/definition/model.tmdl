@@ -1,0 +1,26 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBIDesktopVersion = 2.141.1754.0 (25.03)+e4409ed908ce97a5e9747f7dc48da475cf1c71a2
+
+annotation PBI_QueryOrder = ["T_INGRESOS","T_ID_SABORES","T_ID_RECIPIENTE","T_ID_CLIENTES","T_ID_CAPACIDAD"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table T_INGRESOS
+ref table DateTableTemplate_b2a0dc75-c35b-4462-bb3d-278daeb7ba95
+ref table T_ID_SABORES
+ref table T_ID_RECIPIENTE
+ref table T_ID_CLIENTES
+ref table T_ID_CAPACIDAD
+ref table Calendario
+
+ref cultureInfo en-US
+

@@ -1,0 +1,40 @@
+table T_ID_SABORES
+	lineageTag: a5c311ad-a847-4f40-b53e-c0c76b50e534
+
+	column ID_SABOR
+		dataType: int64
+		formatString: 0
+		lineageTag: fe3c1e97-db54-4672-83b8-243eaecac320
+		summarizeBy: none
+		sourceColumn: ID_SABOR
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descripcion Sabor'
+		dataType: string
+		lineageTag: 828406dc-ea49-4510-a9b9-a483771d37f8
+		summarizeBy: none
+		sourceColumn: Descripcion Sabor
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Categoria Sabor'
+		dataType: string
+		lineageTag: 343a6aba-2cbe-4e13-9b90-81a26e4cadbb
+		summarizeBy: none
+		sourceColumn: Categoria Sabor
+
+		annotation SummarizationSetBy = Automatic
+
+	partition T_ID_SABORES-15cc6d97-ddac-47d8-be3f-e80d1f4e4562 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\dlucc\Desktop\Proyectos Power BI\Heladeria\Heladeria_Data.xlsx"), null, true),
+				    T_ID_SABORES_Table = Source{[Item="T_ID_SABORES",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(T_ID_SABORES_Table,{{"ID_SABOR", Int64.Type}, {"Descripcion Sabor", type text}, {"Categoria Sabor", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

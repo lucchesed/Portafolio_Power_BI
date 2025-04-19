@@ -1,0 +1,20 @@
+relationship c47f8c27-ea64-426c-bc0e-cdbd2935a2fc
+	fromColumn: T_INGRESOS.ID-CLIENTE
+	toColumn: T_ID_CLIENTES.ID_CLIENTE
+
+relationship 807cd89d-f1de-4305-911e-f2c2adbddb27
+	fromColumn: T_INGRESOS.ID_SABOR
+	toColumn: T_ID_SABORES.ID_SABOR
+
+relationship 156e5eac-39ac-452f-8b34-5fc32f35404f
+	fromColumn: T_INGRESOS.ID-RECIPIENTE
+	toColumn: T_ID_RECIPIENTE.ID-RECIPIENTE
+
+relationship dcf7f9c5-946c-4d4d-9722-a2fc0d102dfd
+	fromColumn: T_INGRESOS.ID_CAPACIDAD
+	toColumn: T_ID_CAPACIDAD.ID_CAPACIDAD
+
+relationship 4b6e3d7c-2e0e-41c3-82e5-0fbeac2f352e
+	fromColumn: T_INGRESOS.FECHA
+	toColumn: Calendario.Fecha
+
