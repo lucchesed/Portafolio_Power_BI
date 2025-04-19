@@ -1,0 +1,37 @@
+table LookupCliente
+	lineageTag: c2ad0c35-8b35-413d-9b16-abfc0458afa3
+
+	column Cliente
+		dataType: string
+		lineageTag: 85dd08a7-0a81-4f53-8699-53cb6e5f719b
+		summarizeBy: none
+		sourceColumn: Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Region
+		dataType: string
+		lineageTag: 42654731-fa2a-405d-88f9-637ee7a82859
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition LookupCliente-9cb658cc-b5b0-487f-a12e-1df2a6a9544b = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Admin\Desktop\Curso Excel-PowerBI\Power BI - Practica 2\Finanzas.xlsx"), null, true),
+				    LookupCliente_Table = Source{[Item="LookupCliente",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(LookupCliente_Table,{{"Cliente", type text}, {"Region", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

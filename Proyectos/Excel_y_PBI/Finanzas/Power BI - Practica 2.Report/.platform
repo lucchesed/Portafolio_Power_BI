@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Power BI - Practica 2"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "42fe2d52-ece2-4d91-9edc-befe1d7d82d3"
+  }
+}

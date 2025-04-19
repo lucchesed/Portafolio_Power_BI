@@ -1,0 +1,8 @@
+relationship e696ca56-5647-4a57-abbc-aa79b2dc2070
+	fromColumn: 'Tabla Finanzas'.Cliente
+	toColumn: LookupCliente.Cliente
+
+relationship f8a71f7f-0358-402f-b34e-6d22242d9f69
+	fromColumn: 'Tabla Finanzas'.Producto
+	toColumn: LookupProducto.Producto
+

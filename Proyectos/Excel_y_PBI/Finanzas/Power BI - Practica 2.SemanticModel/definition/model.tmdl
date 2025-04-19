@@ -1,0 +1,23 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-MX
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBIDesktopVersion = 2.141.1754.0 (25.03)+e4409ed908ce97a5e9747f7dc48da475cf1c71a2
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Tabla Finanzas","LookupCliente","LookupProducto"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Tabla Finanzas'
+ref table DateTableTemplate_b70cfcbf-9ec0-4f55-b17f-50c24538f3d9
+ref table LookupCliente
+ref table LookupProducto
+
+ref cultureInfo en-US
+

@@ -1,0 +1,37 @@
+table LookupProducto
+	lineageTag: 46b3864e-8605-464b-92c8-6b26e777bcae
+
+	column Producto
+		dataType: string
+		lineageTag: e2f5164f-c2b9-4da9-adb5-301439c0c7c0
+		summarizeBy: none
+		sourceColumn: Producto
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column 'Tipo de Producto'
+		dataType: string
+		lineageTag: 39756cb9-ad16-4724-b6bb-c8738f3a370a
+		summarizeBy: none
+		sourceColumn: Tipo de Producto
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition LookupProducto-f4b7e40c-dc55-4984-a7a9-76f1b443caf5 = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Admin\Desktop\Curso Excel-PowerBI\Power BI - Practica 2\Finanzas.xlsx"), null, true),
+				    LookupProducto_Table = Source{[Item="LookupProducto",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(LookupProducto_Table,{{"Producto", type text}, {"Tipo de Producto", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

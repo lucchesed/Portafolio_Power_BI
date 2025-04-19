@@ -1,0 +1,93 @@
+table 'Tabla Finanzas'
+	lineageTag: ae65f198-663f-45ec-af6b-44766a62df81
+
+	measure Utilidad = SUM('Tabla Finanzas'[Ingresos]) - SUM('Tabla Finanzas'[Costos])
+		formatString: \$#,0;-\$#,0;\$#,0
+		lineageTag: 5fe4b171-184d-4ee1-8f6c-59d979590ce2
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	measure Margen = [Utilidad] / SUM('Tabla Finanzas'[Ingresos])
+		formatString: 0%;-0%;0%
+		lineageTag: 533f96f6-e85d-437c-b8ec-211b6d78f60c
+
+	column Producto
+		dataType: string
+		lineageTag: c91c7833-0869-41d3-bf2b-5df414212844
+		summarizeBy: none
+		sourceColumn: Producto
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Cliente
+		dataType: string
+		lineageTag: 3fef9275-2bd8-463f-9d83-0a8200310ff6
+		summarizeBy: none
+		sourceColumn: Cliente
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Año
+		dataType: string
+		lineageTag: 4a598fdd-bb44-48bc-9f25-f2e73db8cb4f
+		summarizeBy: none
+		sourceColumn: Año
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Periodo
+		dataType: string
+		lineageTag: 8d7061b0-3914-4df1-a9a2-e68b778f9e43
+		summarizeBy: none
+		sourceColumn: Periodo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Ingresos
+		dataType: double
+		formatString: \$#,0;-\$#,0;\$#,0
+		lineageTag: 2787310b-ce27-4bf1-961a-da7d5f7bb15f
+		summarizeBy: sum
+		sourceColumn: Ingresos
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	column Costos
+		dataType: double
+		formatString: \$#,0;-\$#,0;\$#,0
+		lineageTag: 5a67186e-40ba-48c7-aa68-e74b7ab374ae
+		summarizeBy: sum
+		sourceColumn: Costos
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-MX"}
+
+	partition 'Tabla Finanzas-ffb086e3-aa12-42d3-b3e7-31bdf459009e' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Admin\Desktop\Curso Excel-PowerBI\Power BI - Practica 2\Finanzas.xlsx"), null, true),
+				    Finanzas_Table = Source{[Item="Finanzas",Kind="Table"]}[Data],
+				    #"Changed Type" = Table.TransformColumnTypes(Finanzas_Table,{{"#", Int64.Type}, {"Product Description", type text}, {"Customer Name", type text}, {"Column1", type text}, {"Year", Int64.Type}, {"Prd.", Int64.Type}, {"Quantity", type number}, {"Revenue", type number}, {"Count", Int64.Type}, {"Column2", Int64.Type}, {"Count3", type number}, {"Costs", type number}, {"Margin", type any}, {"Column4", type number}, {"Percent", type any}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"#", "Column1", "Quantity", "Count", "Column2", "Count3", "Margin", "Column4", "Percent"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"Product Description", "Producto"}, {"Customer Name", "Cliente"}, {"Year", "Año"}, {"Prd.", "Periodo"}, {"Revenue", "Ingresos"}, {"Costs", "Costos"}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([Año] = 2019)),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Filtered Rows",{{"Año", type text}, {"Periodo", type text}, {"Ingresos", type number}, {"Costos", type number}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
