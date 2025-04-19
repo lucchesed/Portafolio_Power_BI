@@ -1,0 +1,21 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-MX
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.141.1754.0 (25.03)+e4409ed908ce97a5e9747f7dc48da475cf1c71a2
+
+annotation PBI_QueryOrder = ["Hoja 1"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Hoja 1'
+ref table DateTableTemplate_a7ef0d0c-20a8-433f-9fa3-e2f8fcf02a4f
+
+ref cultureInfo en-US
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Power BI - Practica 1"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1d0e9db6-4bb4-481d-a6ea-6235d70216aa"
+  }
+}
